@@ -1,21 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
 
+const COUNT_INCREMENT = 1;
+
+const innitialState = {
+  count: 0
+};
+
+
+const reducer = (state, action) => {
+  if (action.type === 'increase_count') {
+    return state.count + COUNT_INCREMENT;    
+  } else if (action.type === 'decrease_count') {
+    return state.count - COUNT_INCREMENT;
+
+  }
+  else {
+    return state;
+  }
+};
+
+
 const CounterScreen = () => {
-  const [count, setCount] = useState(0);
-  const increase = () => setCount(prevCount => prevCount + 1);  //advantage don't need to know name of count variable? does this help security or make the code easier to maintian?
-  const decrease = () => setCount(count - 1);  // alternate method of setting count -- seems more direct to me
+
+  //  AS EXERCISE -- take out useState and replace by useReducer, although useState is probably the better choice here!
+  
+  // const [count, setCount] = useState(0);
+  // const increase = () => setCount(prevCount => prevCount + 1);  //advantage don't need to know name of count variable? does this help security or make the code easier to maintian?
+  // const decrease = () => setCount(count - 1);  // alternate method of setting count -- seems more direct to me
 
   return <View style={styles.pageStyle}>
     <View>
       <Text style={styles.titleStyle} >Counter Screen</Text>
     </View>
-    <Text style={styles.textStyle}>Current Count: {count}</Text>
+    <Text style={styles.textStyle}>Current Count: {state.count}</Text>
     <View style={styles.button}>
       <TouchableOpacity
         style={styles.buttonStyle}
         title='Increase'
-        onPress={increase}>
+        onPress={dispatch({type: 'increase_count', payload: COUNT_INCREMENT})}>
         <View style={styles.countContainer}>
           <Text style={styles.buttonTextStyle}>INCREASE</Text>
         </View>
@@ -25,7 +48,7 @@ const CounterScreen = () => {
       <TouchableOpacity
         style={styles.buttonStyle}
         title='Decrease'
-        onPress={decrease}
+        onPress={dispatch({type: 'decrease_count', payload: COUNT_INCREMENT})}
       >
         <View style={styles.countContainer}>
           <Text style={styles.buttonTextStyle}>REDUCE</Text>
