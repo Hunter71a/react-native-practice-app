@@ -9,11 +9,23 @@ const innitialState = {
 
 
 const reducer = (state, action) => {
-  if (action.type === 'increase_count') {
-    return state.count + COUNT_INCREMENT;    
-  } else if (action.type === 'decrease_count') {
-    return state.count - COUNT_INCREMENT;
+  // state === {count: number}
+  // action === {type: 'increase_count' || 'decrease_count', payload: number 1 }
 
+  // switch (action.type) {
+  //   case 'increase_count':
+  //     return { ...state, count: state.count + action.payload };
+  //   case 'decrease_count':
+  //     return { ...state, count: state.count - action.payload };
+  //     default: 
+  //     return state;
+
+  // }
+
+  if (action.type === 'increase_count') {
+    return {...state, count: state.count + action.payload};    
+  } else if (action.type === 'decrease_count') {
+    return {...state, count: state.count - action.payload};
   }
   else {
     return state;
@@ -22,9 +34,10 @@ const reducer = (state, action) => {
 
 
 const CounterScreen = () => {
+  const [state, dispatch] = useReducer(reducer, innitialState);
 
   //  AS EXERCISE -- take out useState and replace by useReducer, although useState is probably the better choice here!
-  
+
   // const [count, setCount] = useState(0);
   // const increase = () => setCount(prevCount => prevCount + 1);  //advantage don't need to know name of count variable? does this help security or make the code easier to maintian?
   // const decrease = () => setCount(count - 1);  // alternate method of setting count -- seems more direct to me
@@ -38,7 +51,7 @@ const CounterScreen = () => {
       <TouchableOpacity
         style={styles.buttonStyle}
         title='Increase'
-        onPress={dispatch({type: 'increase_count', payload: COUNT_INCREMENT})}>
+        onPress={() => dispatch({ type: 'increase_count', payload: COUNT_INCREMENT })}>
         <View style={styles.countContainer}>
           <Text style={styles.buttonTextStyle}>INCREASE</Text>
         </View>
@@ -48,7 +61,7 @@ const CounterScreen = () => {
       <TouchableOpacity
         style={styles.buttonStyle}
         title='Decrease'
-        onPress={dispatch({type: 'decrease_count', payload: COUNT_INCREMENT})}
+        onPress={() => dispatch({ type: 'decrease_count', payload: COUNT_INCREMENT })}
       >
         <View style={styles.countContainer}>
           <Text style={styles.buttonTextStyle}>REDUCE</Text>
@@ -66,7 +79,7 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     flexDirection: 'column',
-   justifyContent: 'space-around',
+    justifyContent: 'space-around',
 
     borderRadius: 10
 
