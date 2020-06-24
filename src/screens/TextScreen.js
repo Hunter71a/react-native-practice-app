@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
 
 
 const TextScreen = () => {
+  const [currentText, setCurrentText] = useState('Shut Up Chump!');
+
   return <View style={styles.pageStyle}>
-     <Text style={styles.titleStyle}>Text Screen</Text>
-    <TextInput style={styles.input}/>
-   
+    <Text style={styles.titleStyle}>Text Screen</Text>
+    <TextInput
+      autoCapitalize='none'
+      autoCorrect={false}
+      style={styles.input}
+      value={currentText}
+      onChangeText={(text) => { setCurrentText(text) }}
+    />
+    <Text>The Text is: {currentText}</Text>
+
   </View>
 }
 
