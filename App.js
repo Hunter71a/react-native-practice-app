@@ -11,6 +11,7 @@ import ColorPickerScreenSliders from './src/screens/ColorPickerScreenSliders';
 import ColorPickerScreenOptomized from './src/screens/ColorPickerScreenOptomized';
 import TextScreen from './src/screens/TextScreen';
 import BoxScreen from './src/screens/BoxScreen';
+import BoxScreen2 from './src/screens/BoxScreen2';
 
 const navigator = createStackNavigator(
   {
@@ -25,6 +26,7 @@ const navigator = createStackNavigator(
     Optomized: ColorPickerScreenOptomized,
     Text: TextScreen,
     Box: BoxScreen,
+    Box2: BoxScreen2,
   },
   {
     initialRouteName: "Home",
