@@ -2,19 +2,40 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
 
 
+
+let warningMessage = '';
+
 const TextScreen = () => {
   const [currentText, setCurrentText] = useState('Shut Up Chump!');
+  const errorMessage = 'Password must be longer than 5 characters';
+
+
+
+
+const setPassword = (text) => {
+  setCurrentText(text);
+  if (text.length < 6 && text.length > 0) {
+    warningMessage = errorMessage;    
+  }
+  else {
+    warningMessage = '';
+  }
+};
+
+
 
   return <View style={styles.pageStyle}>
-    <Text style={styles.titleStyle}>Text Screen</Text>
+    <Text style={styles.titleStyle}>Enter Password:</Text>
     <TextInput
       autoCapitalize='none'
       autoCorrect={false}
       style={styles.input}
       value={currentText}
-      onChangeText={(text) => { setCurrentText(text) }}
+      onChangeText={(text) => { setPassword(text) }}
     />
-    <Text>The Text is: {currentText}</Text>
+    <Text>The Password is: {Array(currentText.length + 1).join('*')}</Text>
+<Text>{warningMessage}</Text>
+{currentText.length < 6 && currentText.length > 0 ? <Text>Password must be longer than 5 characters</Text> : null}
 
   </View>
 }
